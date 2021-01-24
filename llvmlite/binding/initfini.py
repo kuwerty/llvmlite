@@ -1,7 +1,23 @@
-from ctypes import c_uint
+from ctypes import c_uint, POINTER, c_char, c_int, create_string_buffer, cast
 
 from llvmlite.binding import ffi
 
+LP_c_char = POINTER(c_char)
+LP_LP_c_char = POINTER(LP_c_char)
+
+ffi.lib.LLVMPY_ParseCommandLineOptions.argtypes = (c_int, LP_LP_c_char)
+
+
+def parse_options(argv):
+    argc = len(argv)
+    p = (LP_c_char*argc)()
+    for i, arg in enumerate(argv):  # not sys.argv, but argv!!!
+        enc_arg = arg.encode('utf-8')
+        p[i] = create_string_buffer(enc_arg)
+
+    na = cast(p, LP_LP_c_char)
+
+    ffi.lib.LLVMPY_ParseCommandLineOptions(argc, na)
 
 def initialize():
     """

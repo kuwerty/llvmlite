@@ -4,6 +4,11 @@
 
 extern "C" {
 
+API_EXPORT(void)
+LLVMPY_ParseCommandLineOptions(int argc, const char *const *argv) {
+    LLVMParseCommandLineOptions(argc, argv, "llvmlite");
+}
+
 API_EXPORT(const char *)
 LLVMPY_CreateString(const char *msg) {
     return strdup(msg);
