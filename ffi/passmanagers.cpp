@@ -106,6 +106,13 @@ LLVMPY_AddFunctionInliningPass(LLVMPassManagerRef PM, int Threshold)
     unwrap(PM)->add(createFunctionInliningPass(Threshold));
 }
 
+
+API_EXPORT(void)
+LLVMPY_LLVMAddAlwaysInlinerPass(LLVMPassManagerRef PM)
+{
+    LLVMAddAlwaysInlinerPass(PM);
+}
+
 API_EXPORT(void)
 LLVMPY_AddGlobalOptimizerPass(LLVMPassManagerRef PM)
 {

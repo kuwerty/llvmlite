@@ -120,6 +120,9 @@ class PassManager(ffi.ObjectRef):
         """See http://llvm.org/docs/Passes.html#inline-function-integration-inlining."""  # noqa E501
         ffi.lib.LLVMPY_AddFunctionInliningPass(self, threshold)
 
+    def add_always_inline_pass(self):
+        ffi.lib.LLVMAddAlwaysInlinerPass(self)
+
     def add_global_dce_pass(self):
         """See http://llvm.org/docs/Passes.html#globaldce-dead-global-elimination."""  # noqa E501
         ffi.lib.LLVMPY_AddGlobalDCEPass(self)
