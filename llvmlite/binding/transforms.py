@@ -98,6 +98,9 @@ class PassManagerBuilder(ffi.ObjectRef):
         else:
             raise TypeError(pm)
 
+    def add_coroutine_passes(self):
+        ffi.lib.LLVMPY_AddCoroutinePasses(self)
+
     def _dispose(self):
         self._capi.LLVMPY_PassManagerBuilderDispose(self)
 
@@ -108,6 +111,10 @@ class PassManagerBuilder(ffi.ObjectRef):
 ffi.lib.LLVMPY_PassManagerBuilderCreate.restype = ffi.LLVMPassManagerBuilderRef
 
 ffi.lib.LLVMPY_PassManagerBuilderDispose.argtypes = [
+    ffi.LLVMPassManagerBuilderRef,
+]
+
+ffi.lib.LLVMPY_AddCoroutinePasses.argtypes = [
     ffi.LLVMPassManagerBuilderRef,
 ]
 

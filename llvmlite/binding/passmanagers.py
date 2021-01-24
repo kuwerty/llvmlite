@@ -195,6 +195,20 @@ class PassManager(ffi.ObjectRef):
         iflags = RefPruneSubpasses(subpasses_flags)
         ffi.lib.LLVMPY_AddRefPrunePass(self, iflags, subgraph_limit)
 
+    def add_coro_early_pass(self):
+        ffi.lib.LLVMPY_LLVMAddCoroEarlyPass(self)
+
+    def add_coro_split_pass(self):
+        ffi.lib.LLVMPY_LLVMAddCoroSplitPass(self)
+
+    def add_coro_elide_pass(self):
+        ffi.lib.LLVMPY_LLVMAddCoroElidePass(self)
+
+    def add_coro_cleanup_pass(self):
+        ffi.lib.LLVMPY_LLVMAddCoroCleanupPass(self)
+
+    def add_barrier_noop_pass(self):
+        ffi.lib.LLVMPY_LLVMAddBarrierNoopPass(self)
 
 class ModulePassManager(PassManager):
 
@@ -284,3 +298,8 @@ ffi.lib.LLVMPY_AddBasicAliasAnalysisPass.argtypes = [ffi.LLVMPassManagerRef]
 
 ffi.lib.LLVMPY_AddRefPrunePass.argtypes = [ffi.LLVMPassManagerRef, c_int,
                                            c_size_t]
+
+ffi.lib.LLVMPY_LLVMAddCoroEarlyPass.argtypes = [ffi.LLVMPassManagerRef]
+ffi.lib.LLVMPY_LLVMAddCoroSplitPass.argtypes = [ffi.LLVMPassManagerRef]
+ffi.lib.LLVMPY_LLVMAddCoroElidePass.argtypes = [ffi.LLVMPassManagerRef]
+ffi.lib.LLVMPY_LLVMAddCoroCleanupPass.argtypes = [ffi.LLVMPassManagerRef]

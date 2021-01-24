@@ -9,6 +9,7 @@
 
 #include "llvm-c/Transforms/Scalar.h"
 #include "llvm-c/Transforms/IPO.h"
+#include "llvm-c/Transforms/Coroutines.h"
 #include "llvm/IR/LegacyPassManager.h"
 #include "llvm/Transforms/Scalar.h"
 #include "llvm/Transforms/IPO.h"
@@ -189,6 +190,31 @@ API_EXPORT(void)
 LLVMPY_LLVMAddLoopRotatePass(LLVMPassManagerRef PM)
 {
     LLVMAddLoopRotatePass(PM);
+}
+
+API_EXPORT(void)
+LLVMPY_LLVMAddCoroEarlyPass(LLVMPassManagerRef PM) {
+    LLVMAddCoroEarlyPass(PM);
+}
+
+API_EXPORT(void)
+LLVMPY_LLVMAddCoroSplitPass(LLVMPassManagerRef PM) {
+    LLVMAddCoroSplitPass(PM);
+}
+
+API_EXPORT(void)
+LLVMPY_LLVMAddCoroElidePass(LLVMPassManagerRef PM) {
+    LLVMAddCoroElidePass(PM);
+}
+
+API_EXPORT(void)
+LLVMPY_LLVMAddCoroCleanupPass(LLVMPassManagerRef PM) {
+    LLVMAddCoroCleanupPass(PM);
+}
+
+API_EXPORT(void)
+LLVMPY_LLVMAddBarrierNoopPass(LLVMPassManagerRef PM) {
+    unwrap(PM)->add(createBarrierNoopPass());
 }
 
 } // end extern "C"

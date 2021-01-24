@@ -131,5 +131,11 @@ LLVMPY_PassManagerBuilderGetSLPVectorize(LLVMPassManagerBuilderRef PMB)
     return pmb->SLPVectorize;
 }
 
+API_EXPORT(void)
+LLVMPY_AddCoroutinePasses(LLVMPassManagerBuilderRef PMB) {
+    llvm::PassManagerBuilder *pmb = llvm::unwrap(PMB);
+    llvm::addCoroutinePassesToExtensionPoints(*pmb);
+}
+
 
 } // end extern "C"
