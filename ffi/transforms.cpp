@@ -2,9 +2,12 @@
 #include "llvm-c/Transforms/PassManagerBuilder.h"
 #include "llvm-c/Target.h"
 #include "llvm/Transforms/IPO/PassManagerBuilder.h"
+#include "llvm/Transforms/Coroutines.h"
 
 
 extern "C" {
+
+#if LLVM_VERSION_MAJOR == 10 || LLVM_VERSION_MAJOR == 9
 
 namespace llvm {
     inline PassManagerBuilder *unwrap(LLVMPassManagerBuilderRef P) {
@@ -15,6 +18,8 @@ namespace llvm {
         return reinterpret_cast<LLVMPassManagerBuilderRef>(P);
     }
 }
+
+#endif
 
 
 API_EXPORT(LLVMPassManagerBuilderRef)
